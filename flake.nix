@@ -11,29 +11,29 @@
     for-all-system = f: nixpkgs.lib.genAttrs
       systems (system: f nixpkgs.legacyPackages.${system})
     ;
-
-    noto-font-cjk-sc-ttf = pkgs.fetchFromGitHub {
-      owner = "notofonts";
-      repo  = "noto-cjk";
-      rev   = "Serif2.003";
-      hash  = "sha256-mfbBSdJrUCZiUUmsmndtEW6H3z6KfBn+dEftBySf2j4=";
-      sparseCheckout = [ "Serif/OTC" ];
-    };
-
-    kaiti-otf = pkgs.fetchurl {
-      url = "https://github.com/dolbydu/font/raw/refs/heads/master/unicode/Adobe%20Kaiti%20Std.otf";
-      sha256 = "sha256-COdgFJqlKoUuGTBsyaWstcUKyGkN2FoU4HhLeno5buw=";
-    };
-
-    fira-code = pkgs.fira-code.override {
-      useVariableFont = false;
-    };
   in {
     packages = for-all-system (pkgs: {
       default = pkgs.stdenvNoCC.mkDerivation rec {
         name = "plt-note font setup";
 
         src = ./.;
+
+        noto-font-cjk-sc-ttf = pkgs.fetchFromGitHub {
+          owner = "notofonts";
+          repo  = "noto-cjk";
+          rev   = "Serif2.003";
+          hash  = "sha256-mfbBSdJrUCZiUUmsmndtEW6H3z6KfBn+dEftBySf2j4=";
+          sparseCheckout = [ "Serif/OTC" ];
+        };
+
+        kaiti-otf = pkgs.fetchurl {
+          url = "https://github.com/dolbydu/font/raw/refs/heads/master/unicode/Adobe%20Kaiti%20Std.otf";
+          sha256 = "sha256-COdgFJqlKoUuGTBsyaWstcUKyGkN2FoU4HhLeno5buw=";
+        };
+
+        fira-code = pkgs.fira-code.override {
+          useVariableFont = false;
+        };
 
         buildPhase = ''
           mkdir fonts
