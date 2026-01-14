@@ -12,7 +12,7 @@
       "Noto Serif CJK SC",
     ),
     lang: language,
-    size: 10pt,
+    size: 11pt,
     weight: "light",
   )
 
